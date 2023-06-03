@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>记一次CentOS7踩坑</title>
+      <link href="/2023/06/03/%E8%AE%B0%E4%B8%80%E6%AC%A1CentOS7%E8%B8%A9%E5%9D%91/"/>
+      <url>/2023/06/03/%E8%AE%B0%E4%B8%80%E6%AC%A1CentOS7%E8%B8%A9%E5%9D%91/</url>
+      
+        <content type="html"><![CDATA[<h2 id="CentOS7网络问题"><a href="#CentOS7网络问题" class="headerlink" title="CentOS7网络问题"></a>CentOS7网络问题</h2><p>今天打开了虚拟机,使用<strong>yum</strong>命令的时候控制台报错</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Could not resolve host: mirrorlist.centos.org; 未知的错误&quot;</span><br></pre></td></tr></table></figure><p>,随后打开FinalShell,发现FinalShell怎么也连接不CentOS7,判断为网络问题”本机无法连接网络的网络设置”,打开终端输入命令</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com #网络不通</span><br></pre></td></tr></table></figure><p>查看安装在本机的网卡</p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603230230659.png" alt="image-20230603230230659"></p><p>切换到 &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;目录下，打开“ifcfg-ens33”文件：</p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603230355049.png" alt="image-20230603230355049"></p><p>修改成如下配置</p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603230751249.png" alt="image-20230603230751249"></p><p><strong>注意! ip地址&#x2F;网关需要按自己实际修改</strong></p><p>查看ip地址方法:</p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603230912247.png" alt="image-20230603230912247"></p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603231001137.png" alt="image-20230603231001137"></p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603231036733.png" alt="image-20230603231036733"></p><p>查看网关</p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603231103252.png" alt="image-20230603231103252"></p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603231113078.png" alt="image-20230603231113078"></p><p>配置好后回到终端输入命令</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart network</span><br></pre></td></tr></table></figure><p>重启完网络后输入命令进行DNS解析设置</p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603231309441.png" alt="image-20230603231309441"></p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603231524894.png" alt="image-20230603231524894"></p><p>配置好保存退出</p><p>此时ping一下<a href="http://www.baidu.com/">www.baidu.com</a>  成功ping通</p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603231618300.png" alt="image-20230603231618300"></p><p>FinalShell连接:</p><p><img src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/image-20230603231644171.png" alt="image-20230603231644171"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 分享 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 踩坑 </tag>
+            
+            <tag> 分享 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>心情日志-6.2</title>
       <link href="/2023/06/02/%E5%BF%83%E6%83%85%E6%97%A5%E5%BF%97-6-2/"/>
       <url>/2023/06/02/%E5%BF%83%E6%83%85%E6%97%A5%E5%BF%97-6-2/</url>
