@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Kurumi小说屋(开发文档) | Kurumi - Blog</title><meta name="author" content="Kurumi"><meta name="copyright" content="Kurumi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="开发环境 MySQL 8.0 Redis 7.0 Elasticsearch 8.6.2 (后期加入) RabbitMQ 3 XXL-JOB 2.3.1 Nacos 2.2.1 JDK 17 ( jdk10后加入了var 类型推断非常适合foreach循环) Maven 3.8.6 Node  16  后端技术选型 Spring Cloud			 Spring Cloud Alibaba	 Nac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kurumi小说屋(开发文档)">
+<meta property="og:url" content="http://blog.monanhao.top/2023/06/05/Kurumi%E5%B0%8F%E8%AF%B4%E5%B1%8B-%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="Kurumi - Blog">
+<meta property="og:description" content="开发环境 MySQL 8.0 Redis 7.0 Elasticsearch 8.6.2 (后期加入) RabbitMQ 3 XXL-JOB 2.3.1 Nacos 2.2.1 JDK 17 ( jdk10后加入了var 类型推断非常适合foreach循环) Maven 3.8.6 Node  16  后端技术选型 Spring Cloud			 Spring Cloud Alibaba	 Nac">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_8.webp">
+<meta property="article:published_time" content="2023-06-05T11:35:14.000Z">
+<meta property="article:modified_time" content="2023-06-05T11:36:11.350Z">
+<meta property="article:author" content="Kurumi">
+<meta property="article:tag" content="Kurumi小说屋">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_8.webp"><link rel="shortcut icon" href="https://www.fomal.cc/favicon.ico"><link rel="canonical" href="http://blog.monanhao.top/2023/06/05/Kurumi%E5%B0%8F%E8%AF%B4%E5%B1%8B-%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":1000},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Kurumi小说屋(开发文档)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-05 19:36:11'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/readPercent.css"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/2212FAD0C1E0B5CA3EA214A41E323E2A.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope-open"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://source.fomal.cc/img/default_cover_8.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Kurumi - Blog"><span class="site-name">Kurumi - Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope-open"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Kurumi小说屋(开发文档)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-05T11:35:14.000Z" title="发表于 2023-06-05 19:35:14">2023-06-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-05T11:36:11.350Z" title="更新于 2023-06-05 19:36:11">2023-06-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91/">项目开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Kurumi小说屋(开发文档)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ul>
+<li>MySQL 8.0</li>
+<li>Redis 7.0</li>
+<li>Elasticsearch 8.6.2 (后期加入)</li>
+<li>RabbitMQ 3</li>
+<li>XXL-JOB 2.3.1</li>
+<li>Nacos 2.2.1</li>
+<li>JDK 17 ( jdk10后加入了var 类型推断非常适合foreach循环)</li>
+<li>Maven 3.8.6</li>
+<li>Node  16</li>
+</ul>
+<h2 id="后端技术选型"><a href="#后端技术选型" class="headerlink" title="后端技术选型"></a>后端技术选型</h2><ul>
+<li>Spring Cloud			</li>
+<li>Spring Cloud Alibaba	</li>
+<li>Nacos</li>
+<li>Spring Boot</li>
+<li>MyBatis、MyBatis Plus</li>
+<li>Redis 、Redisson</li>
+<li>RabbitMQ</li>
+<li>MySQL</li>
+<li>XXL-JOB</li>
+<li>Elasticsearch</li>
+</ul>
+<h2 id="前端技术选型"><a href="#前端技术选型" class="headerlink" title="前端技术选型"></a>前端技术选型</h2><ul>
+<li>Vue.js</li>
+<li>axios</li>
+</ul>
+<h2 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h2><p>&#x2F;&#x2F;todo:后期补上</p>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>novel</p>
+<p>|—-core	–核心模块</p>
+<p>|—-gateway	–Spring Cloud Gateway网关</p>
+<p>|—-search	– Elasticsearch搜索服务(后续加入)</p>
+<p>|—-home	–首页服务</p>
+<p>|—-news		–新闻服务</p>
+<p>|—-book		–小说服务</p>
+<p>|—-user		–用户服务</p>
+<p>|—-author	–作家服务</p>
+<p>|—-resource	–资源服务</p>
+<h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><p>&#x2F;&#x2F;todo:后期补上</p>
+<h2 id="项目开发"><a href="#项目开发" class="headerlink" title="项目开发"></a>项目开发</h2><h3 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h3><h4 id="通用请求-x2F-响应数据格式封装"><a href="#通用请求-x2F-响应数据格式封装" class="headerlink" title="通用请求&#x2F;响应数据格式封装"></a>通用请求&#x2F;响应数据格式封装</h4><ol>
+<li>分页请求格式封装</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PageReqDto</span> &#123;</span><br><span class="line">    <span class="comment">/*** 请求页码，默认第1页*/</span></span><br><span class="line">    <span class="meta">@Parameter(description = &quot;请求页码，默认第 1 页&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">pageNum</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="comment">/**每页大小，默认每页 10 条*/</span></span><br><span class="line">    <span class="meta">@Parameter(description = &quot;每页大小，默认每页 10 条&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="comment">/**查询所有，默认不查所有*/</span></span><br><span class="line">    <span class="meta">@Parameter(hidden = true)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="variable">fetchAll</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>分页响应数据格式封装</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PageRespDto</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">/**页码*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> pageNum;</span><br><span class="line">    <span class="comment">/**每页大小*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> pageSize;</span><br><span class="line">    <span class="comment">/** 总记录数 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> total;</span><br><span class="line">    <span class="comment">/**分页数据集*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;? <span class="keyword">extends</span> <span class="title class_">T</span>&gt; list;</span><br><span class="line">    <span class="comment">/** 通用分页查询的场景 接收普通分页数据和普通集合*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PageRespDto</span><span class="params">(<span class="type">long</span> pageNum, <span class="type">long</span> pageSize, <span class="type">long</span> total, List&lt;T&gt; list)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.pageNum = pageNum;</span><br><span class="line">        <span class="built_in">this</span>.pageSize = pageSize;</span><br><span class="line">        <span class="built_in">this</span>.total = total;</span><br><span class="line">        <span class="built_in">this</span>.list = list;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; PageRespDto&lt;T&gt; <span class="title function_">of</span><span class="params">(<span class="type">long</span> pageNum, <span class="type">long</span> pageSize, <span class="type">long</span> total, List&lt;T&gt; list)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PageRespDto</span>&lt;&gt;(pageNum, pageSize, total, list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>Http Rest 响应工具及数据格式封装</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RestResp</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">/**响应码*/</span></span><br><span class="line">    <span class="meta">@Schema(description = &quot;错误码，00000-没有错误&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line">    <span class="comment">/**响应消息*/</span></span><br><span class="line">    <span class="meta">@Schema(description = &quot;响应消息&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line">    <span class="comment">/**响应数据 */</span></span><br><span class="line">    <span class="meta">@Schema(description = &quot;响应数据&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> T data;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">RestResp</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.code = ErrorCodeEnum.OK.getCode();</span><br><span class="line">        <span class="built_in">this</span>.message = ErrorCodeEnum.OK.getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">RestResp</span><span class="params">(ErrorCodeEnum errorCode)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.code = errorCode.getCode();</span><br><span class="line">        <span class="built_in">this</span>.message = errorCode.getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">RestResp</span><span class="params">(T data)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>();</span><br><span class="line">        <span class="built_in">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**业务处理成功,无数据返回*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> RestResp&lt;Void&gt; <span class="title function_">ok</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestResp</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**业务处理成功，有数据返回*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; RestResp&lt;T&gt; <span class="title function_">ok</span><span class="params">(T data)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestResp</span>&lt;&gt;(data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**业务处理失败*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> RestResp&lt;Void&gt; <span class="title function_">fail</span><span class="params">(ErrorCodeEnum errorCode)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestResp</span>&lt;&gt;(errorCode);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**判断是否成功*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isOk</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Objects.equals(<span class="built_in">this</span>.code, ErrorCodeEnum.OK.getCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="通用异常处理"><a href="#通用异常处理" class="headerlink" title="通用异常处理"></a>通用异常处理</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BusinessException</span> <span class="keyword">extends</span> <span class="title class_">RuntimeException</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ErrorCodeEnum errorCodeEnum;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BusinessException</span><span class="params">(ErrorCodeEnum errorCodeEnum)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(errorCodeEnum.getMessage(), <span class="literal">null</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line">        <span class="built_in">this</span>.errorCodeEnum = errorCodeEnum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommonExceptionHandler</span> &#123;</span><br><span class="line">    <span class="comment">/**处理数据校验异常*/</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(BindException.class)</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;Void&gt; <span class="title function_">handlerBindException</span><span class="params">(BindException e)</span> &#123;</span><br><span class="line">        log.error(e.getMessage(), e);</span><br><span class="line">        <span class="keyword">return</span> RestResp.fail(ErrorCodeEnum.USER_REQUEST_PARAM_ERROR);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**处理业务异常*/</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(BusinessException.class)</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;Void&gt; <span class="title function_">handlerBusinessException</span><span class="params">(BusinessException e)</span> &#123;</span><br><span class="line">        log.error(e.getMessage(), e);</span><br><span class="line">        <span class="keyword">return</span> RestResp.fail(e.getErrorCodeEnum());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**处理系统异常*/</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;Void&gt; <span class="title function_">handlerException</span><span class="params">(Exception e)</span> &#123;</span><br><span class="line">        log.error(e.getMessage(), e);</span><br><span class="line">        <span class="keyword">return</span> RestResp.error();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h4><p>&#x2F;&#x2F;todo:常量定义</p>
+<h4 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> CorsWebFilter <span class="title function_">corsWebFilter</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">CorsConfiguration</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CorsConfiguration</span>();</span><br><span class="line">    config.addAllowedOrigin(<span class="string">&quot;http://localhost:1024&quot;</span>);</span><br><span class="line">    config.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    config.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    config.setAllowCredentials(<span class="literal">true</span>);</span><br><span class="line">    <span class="type">UrlBasedCorsConfigurationSource</span> <span class="variable">configurationSource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UrlBasedCorsConfigurationSource</span>();</span><br><span class="line">    <span class="comment">//拦截一切请求</span></span><br><span class="line">    configurationSource.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, config);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">CorsWebFilter</span>(configurationSource);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="MyBatis-Plus分页插件"><a href="#MyBatis-Plus分页插件" class="headerlink" title="MyBatis Plus分页插件"></a>MyBatis Plus分页插件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MybatisPlusConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MybatisPlusInterceptor <span class="title function_">mybatisPlusInterceptor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">MybatisPlusInterceptor</span> <span class="variable">interceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MybatisPlusInterceptor</span>();</span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> <span class="title class_">PaginationInnerInterceptor</span>(DbType.MYSQL));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="缓存配置"><a href="#缓存配置" class="headerlink" title="缓存配置"></a>缓存配置</h4><ol>
+<li>Redis</li>
+</ol>
+<p>&#x2F;&#x2F;todo:</p>
+<ol>
+<li>Caffeine</li>
+</ol>
+<p>&#x2F;&#x2F;todo:</p>
+<h4 id="XXL-JOB"><a href="#XXL-JOB" class="headerlink" title="XXL-JOB"></a>XXL-JOB</h4><p><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-job/">https://www.xuxueli.com/xxl-job/</a></p>
+<h3 id="接口开发"><a href="#接口开发" class="headerlink" title="接口开发"></a>接口开发</h3><h4 id="首页接口"><a href="#首页接口" class="headerlink" title="首页接口"></a>首页接口</h4><ol>
+<li>Controller</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/api/front/home&quot;)</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HomeController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HomeService homeService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 首页小说推荐查询接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;books&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;List&lt;HomeBookRespDto&gt;&gt; <span class="title function_">listHomeBooks</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> homeService.listHomeBooks();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 首页友情链接列表查询接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;friend_Link/list&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;List&lt;HomeFriendLinkRespDto&gt;&gt; <span class="title function_">listHomeFriendLinks</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> homeService.listHomeFriendLinks();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>service</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">HomeService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询首页小说推荐列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    RestResp&lt;List&lt;HomeBookRespDto&gt;&gt; <span class="title function_">listHomeBooks</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 首页友情链接列表查询</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    RestResp&lt;List&lt;HomeFriendLinkRespDto&gt;&gt; <span class="title function_">listHomeFriendLinks</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>implements</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HomeServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">HomeService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HomeBookCacheManager homeBookCacheManager;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> FriendLinkCacheManager friendLinkCacheManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;List&lt;HomeBookRespDto&gt;&gt; <span class="title function_">listHomeBooks</span><span class="params">()</span> &#123;</span><br><span class="line">        List&lt;HomeBookRespDto&gt; list = homeBookCacheManager.listHomeBooks();</span><br><span class="line">        <span class="keyword">if</span>(CollectionUtils.isEmpty(list))&#123;</span><br><span class="line">            homeBookCacheManager.evictCache();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> RestResp.ok(list);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;List&lt;HomeFriendLinkRespDto&gt;&gt; <span class="title function_">listHomeFriendLinks</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> RestResp.ok(friendLinkCacheManager.listFriendLinks());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>Cache Manager</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HomeBookCacheManager</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HomeBookMapper homeBookMapper;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BookFeignManager bookFeignManager;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询首页小说推荐，并放入缓存中</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Cacheable(cacheManager = CacheConsts.CAFFEINE_CACHE_MANAGER,</span></span><br><span class="line"><span class="meta">        value = CacheConsts.HOME_BOOK_CACHE_NAME)</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;HomeBookRespDto&gt; <span class="title function_">listHomeBooks</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 从首页小说推荐表中查询出需要推荐的小说</span></span><br><span class="line">        QueryWrapper&lt;HomeBook&gt; queryWrapper = <span class="keyword">new</span> <span class="title class_">QueryWrapper</span>&lt;&gt;();</span><br><span class="line">        queryWrapper.orderByAsc(DatabaseConsts.CommonColumnEnum.SORT.getName());</span><br><span class="line">        List&lt;HomeBook&gt; homeBooks = homeBookMapper.selectList(queryWrapper);</span><br><span class="line">        <span class="comment">// 获取推荐小说ID列表</span></span><br><span class="line">        <span class="keyword">if</span> (!CollectionUtils.isEmpty(homeBooks)) &#123;</span><br><span class="line">            List&lt;Long&gt; bookIds = homeBooks.stream()</span><br><span class="line">                .map(HomeBook::getBookId)</span><br><span class="line">                .toList();</span><br><span class="line">            <span class="comment">// 根据小说ID列表查询相关的小说信息列表</span></span><br><span class="line">            List&lt;BookInfoRespDto&gt; bookInfos = bookFeignManager.listBookInfoByIds(bookIds);</span><br><span class="line">            <span class="comment">// 组装 HomeBookRespDto 列表数据并返回</span></span><br><span class="line">            <span class="keyword">if</span> (!CollectionUtils.isEmpty(bookInfos)) &#123;</span><br><span class="line">                Map&lt;Long, BookInfoRespDto&gt; bookInfoMap = bookInfos.stream()</span><br><span class="line">                    .collect(Collectors.toMap(BookInfoRespDto::getId, Function.identity()));</span><br><span class="line">                <span class="keyword">return</span> homeBooks.stream().map(v -&gt; &#123;</span><br><span class="line">                    <span class="type">BookInfoRespDto</span> <span class="variable">bookInfo</span> <span class="operator">=</span> bookInfoMap.get(v.getBookId());</span><br><span class="line">                    <span class="type">HomeBookRespDto</span> <span class="variable">bookRespDto</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HomeBookRespDto</span>();</span><br><span class="line">                    bookRespDto.setType(v.getType());</span><br><span class="line">                    bookRespDto.setBookId(v.getBookId());</span><br><span class="line">                    bookRespDto.setBookName(bookInfo.getBookName());</span><br><span class="line">                    bookRespDto.setPicUrl(bookInfo.getPicUrl());</span><br><span class="line">                    bookRespDto.setAuthorName(bookInfo.getAuthorName());</span><br><span class="line">                    bookRespDto.setBookDesc(bookInfo.getBookDesc());</span><br><span class="line">                    <span class="keyword">return</span> bookRespDto;</span><br><span class="line">                &#125;).toList();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="登录接口"><a href="#登录接口" class="headerlink" title="登录接口"></a>登录接口</h4><ol>
+<li>Controller</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用户登录接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;login&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResp&lt;UserLoginRespDto&gt; <span class="title function_">login</span><span class="params">(<span class="meta">@Valid</span> <span class="meta">@RequestBody</span> UserLoginReqDto dto)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> userService.login(dto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>service</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RestResp&lt;UserLoginRespDto&gt; <span class="title function_">login</span><span class="params">(UserLoginReqDto dto)</span>;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>implements</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;UserLoginRespDto&gt; <span class="title function_">login</span><span class="params">(UserLoginReqDto dto)</span> &#123;</span><br><span class="line">        <span class="comment">// 查询用户信息</span></span><br><span class="line">        QueryWrapper&lt;UserInfo&gt; queryWrapper = <span class="keyword">new</span> <span class="title class_">QueryWrapper</span>&lt;&gt;();</span><br><span class="line">        queryWrapper.eq(DatabaseConsts.UserInfoTable.COLUMN_USERNAME, dto.getUsername())</span><br><span class="line">            .last(<span class="string">&quot;limit 1&quot;</span>);</span><br><span class="line">        <span class="type">UserInfo</span> <span class="variable">userInfo</span> <span class="operator">=</span> userInfoMapper.selectOne(queryWrapper);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(userInfo)) &#123;</span><br><span class="line">            <span class="comment">// 用户不存在</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusinessException</span>(ErrorCodeEnum.USER_ACCOUNT_NOT_EXIST);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 判断密码是否正确</span></span><br><span class="line">        <span class="keyword">if</span> (!Objects.equals(userInfo.getPassword()</span><br><span class="line">            , DigestUtils.md5DigestAsHex(dto.getPassword().getBytes(StandardCharsets.UTF_8)))) &#123;</span><br><span class="line">            <span class="comment">// 密码错误</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusinessException</span>(ErrorCodeEnum.USER_PASSWORD_ERROR);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 登录成功，生成JWT并返回</span></span><br><span class="line">        <span class="keyword">return</span> RestResp.ok(UserLoginRespDto.builder()</span><br><span class="line">            .token(JwtUtils.generateToken(userInfo.getId(), SystemConfigConsts.NOVEL_FRONT_KEY))</span><br><span class="line">            .uid(userInfo.getId())</span><br><span class="line">            .nickName(userInfo.getNickName()).build());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="注册接口"><a href="#注册接口" class="headerlink" title="注册接口"></a>注册接口</h4><ol>
+<li>controller</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用户注册接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;register&quot;)</span></span><br><span class="line"><span class="keyword">public</span> RestResp&lt;UserRegisterRespDto&gt; <span class="title function_">register</span><span class="params">(<span class="meta">@Valid</span> <span class="meta">@RequestBody</span> UserRegisterReqDto dto)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> userService.register(dto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>service</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RestResp&lt;UserRegisterRespDto&gt; <span class="title function_">register</span><span class="params">(UserRegisterReqDto dto)</span>;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>implements</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> RestResp&lt;UserRegisterRespDto&gt; <span class="title function_">register</span><span class="params">(UserRegisterReqDto dto)</span> &#123;</span><br><span class="line">        <span class="comment">// 校验图形验证码是否正确</span></span><br><span class="line">        <span class="keyword">if</span> (!verifyCodeManager.imgVerifyCodeOk(dto.getSessionId(), dto.getVelCode())) &#123;</span><br><span class="line">            <span class="comment">// 图形验证码校验失败</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusinessException</span>(ErrorCodeEnum.USER_VERIFY_CODE_ERROR);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 校验手机号是否已注册</span></span><br><span class="line">        QueryWrapper&lt;UserInfo&gt; queryWrapper = <span class="keyword">new</span> <span class="title class_">QueryWrapper</span>&lt;&gt;();</span><br><span class="line">        queryWrapper.eq(DatabaseConsts.UserInfoTable.COLUMN_USERNAME, dto.getUsername())</span><br><span class="line">            .last(DatabaseConsts.SqlEnum.LIMIT_1.getSql());</span><br><span class="line">        <span class="keyword">if</span> (userInfoMapper.selectCount(queryWrapper) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 手机号已注册</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BusinessException</span>(ErrorCodeEnum.USER_NAME_EXIST);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 注册成功，保存用户信息</span></span><br><span class="line">        <span class="type">UserInfo</span> <span class="variable">userInfo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserInfo</span>();</span><br><span class="line">        userInfo.setPassword(</span><br><span class="line">            DigestUtils.md5DigestAsHex(dto.getPassword().getBytes(StandardCharsets.UTF_8)));</span><br><span class="line">        userInfo.setUsername(dto.getUsername());</span><br><span class="line">        userInfo.setNickName(dto.getUsername());</span><br><span class="line">        userInfo.setCreateTime(LocalDateTime.now());</span><br><span class="line">        userInfo.setUpdateTime(LocalDateTime.now());</span><br><span class="line">        userInfo.setSalt(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">        userInfoMapper.insert(userInfo);</span><br><span class="line">        <span class="comment">// 删除验证码</span></span><br><span class="line">        verifyCodeManager.removeImgVerifyCode(dto.getSessionId());</span><br><span class="line">        <span class="comment">// 生成JWT 并返回</span></span><br><span class="line">        <span class="keyword">return</span> RestResp.ok(</span><br><span class="line">            UserRegisterRespDto.builder()</span><br><span class="line">                .token(JwtUtils.generateToken(userInfo.getId(), SystemConfigConsts.NOVEL_FRONT_KEY))</span><br><span class="line">                .uid(userInfo.getId())</span><br><span class="line">                .build()</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="小说接口"><a href="#小说接口" class="headerlink" title="小说接口"></a>小说接口</h4><h4 id="评论接口"><a href="#评论接口" class="headerlink" title="评论接口"></a>评论接口</h4><p>……</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://blog.monanhao.top">Kurumi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.monanhao.top/2023/06/05/Kurumi%E5%B0%8F%E8%AF%B4%E5%B1%8B-%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/">http://blog.monanhao.top/2023/06/05/Kurumi%E5%B0%8F%E8%AF%B4%E5%B1%8B-%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.monanhao.top" target="_blank">Kurumi - Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Kurumi%E5%B0%8F%E8%AF%B4%E5%B1%8B/">Kurumi小说屋</a></div><div class="post_share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_8.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/06/03/%E8%AE%B0%E4%B8%80%E6%AC%A1CentOS7%E8%B8%A9%E5%9D%91/" title="记一次CentOS7踩坑"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_5.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">记一次CentOS7踩坑</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/2212FAD0C1E0B5CA3EA214A41E323E2A.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kurumi</div><div class="author-info__description">个人博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/irving-6"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/irving-6" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1290823081@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-text">开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-text">后端技术选型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-text">前端技术选型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84"><span class="toc-text">项目架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-text">项目结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="toc-text">数据库设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91"><span class="toc-text">项目开发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE"><span class="toc-text">项目配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E8%AF%B7%E6%B1%82-x2F-%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%B0%81%E8%A3%85"><span class="toc-text">通用请求&#x2F;响应数据格式封装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-text">通用异常处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-text">常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%A8%E5%9F%9F"><span class="toc-text">跨域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MyBatis-Plus%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"><span class="toc-text">MyBatis Plus分页插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE"><span class="toc-text">缓存配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XXL-JOB"><span class="toc-text">XXL-JOB</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E5%BC%80%E5%8F%91"><span class="toc-text">接口开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A6%96%E9%A1%B5%E6%8E%A5%E5%8F%A3"><span class="toc-text">首页接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3"><span class="toc-text">登录接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E6%8E%A5%E5%8F%A3"><span class="toc-text">注册接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E8%AF%B4%E6%8E%A5%E5%8F%A3"><span class="toc-text">小说接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA%E6%8E%A5%E5%8F%A3"><span class="toc-text">评论接口</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">格言🧬</p><div class="bg-ad"><div>再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://stellarium.org/">点击开启星辰之旅</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">猜你想看💡</p><ul class="ft-links"><li><a href="/social/link/">我的朋友</a><a href="/comments/">留点什么</a></li><li><a href="/personal/about/">关于作者</a><a href="/archives/">文章归档</a></li><li><a href="/categories/">文章分类</a><a href="/tags/">文章标签</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链⌛</p><div class="ft-img-group"><div class="img-group-item"><a href="https://blog.monanhao.top/" title="Kurumi🥝"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/2212FAD0C1E0B5CA3EA214A41E323E2A.jpg" alt=""/></a></div><div class="img-group-item"><a href="javascript:void(0)" title="广告位招租"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://lskypro.acozycotage.net/LightPicture/2022/12/65307a5828af6790.webp" alt=""/></a></div></div></div></div><div class="copyright"><span><b>&copy;2023</b></span><span><b>&nbsp;&nbsp;By Kurumi</b></span></div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.3.0"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://sourcebucket.s3.ladydaily.com/badge/Theme-Butterfly-6513df.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://bitiful.dogecast.com/buckets" style="margin-inline:5px" title="本网站经Service Worker分流至缤纷云对象存储"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src=" https://sourcebucket.s3.ladydaily.com/badge/Bucket-缤纷云-9c62da.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本网站源码由Github提供存储仓库"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src=" https://sourcebucket.s3.ladydaily.com/badge/Source-Github-d021d6.svg" alt=""/></a></p></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><rightsideItem showArray></rightsideItem><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"><span id="percent">0 </span><span>%</span></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.monanhao.top/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.monanhao.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer data-pjax src="/js/readPercent.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script defer src="/js/runtime.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="30" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/664074c7391da067daab7bf9c0dfd617168687092.jpg@1280w_720h_1e_1c_!web-dynamic.webp);"> <a class="categoryBar-list-link" href="categories/Java八股文/">Java八股文</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr">Java八股文</span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_44.webp);"> <a class="categoryBar-list-link" href="categories/随心记/">随心记</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr">Bug日志</span></li><li class="categoryBar-list-item" style="background:url(https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/6f10ed6032ffadc7cbad0f7f93cb82ac54b643b1.jpg);"> <a class="categoryBar-list-link" href="categories/分享/">分享</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr">随心记</span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_46.webp);"> <a class="categoryBar-list-link" href="categories/项目开发/">项目开发</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr">个人日记</span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/06/01/Java8新特性/" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/irving-6/markdown_pic@main/2023/06/fa831ee1d50d7d7b7d5760875674f898168687092.jpg@1036w_!web-dynamic.webp" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-06-01</span><a class="blog-slider__title" href="2023/06/01/Java8新特性/" alt="">Java8新特性</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" href="2023/06/01/Java8新特性/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/06/01/2023-6-1/" alt=""><img width="48" height="48" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_6.webp" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-06-01</span><a class="blog-slider__title" href="2023/06/01/2023-6-1/" alt="">第一篇文章</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" href="2023/06/01/2023-6-1/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '2');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var qweather_key = '24343a80914347ed8f4a867f824c417b';
+  var gaud_map_key = 'c1cf256049570c74875dd2e526e23ccf';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '113.34532,23.15624';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body></html>
